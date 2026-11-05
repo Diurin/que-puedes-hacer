@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sánchez Aguilera | Transformación Urbana de Ferrol</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: rgba(22, 30, 46, 0.75);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent: #00d29d;
+      --accent-glow: rgba(0, 210, 157, 0.25);
+      --accent-blue: #3b82f6;
+      --accent-amber: #f59e0b;
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(0, 210, 157, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 40%);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      background: rgba(0, 210, 157, 0.12);
+      border: 1px solid rgba(0, 210, 157, 0.3);
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ffffff 30%, #9ca3af 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .highlight-text {
+      background: linear-gradient(135deg, #00d29d 0%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 700px;
+      margin: 0 auto 1.5rem;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      transition: transform 0.25s, border-color 0.25s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(0, 210, 157, 0.4);
+    }
+
+    .stat-number {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Navigation Tabs */
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 0.4rem;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      margin-bottom: 2rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tabs::-webkit-scrollbar { display: none; }
+
+    .tab-btn {
+      flex: 1;
+      min-width: 130px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 0.75rem 1rem;
+      font-size: 0.92rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .tab-btn.active {
+      background: var(--card-bg);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Tab Content Panels */
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Cards & Grids */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(12px);
+    }
+
+    .card h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.4rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #fff;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .feature-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 1.25rem;
+      transition: 0.2s;
+    }
+
+    .feature-item:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(0, 210, 157, 0.3);
+    }
+
+    .feature-icon {
+      font-size: 1.75rem;
+      margin-bottom: 0.75rem;
+      display: inline-block;
+    }
+
+    .feature-item h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.4rem;
+      color: #f3f4f6;
+    }
+
+    .feature-item p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), var(--accent-blue));
+    }
+
+    .timeline-step {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
+    .timeline-step:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -2rem;
+      top: 4px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    .timeline-year {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 0.95rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .timeline-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Interactive Explorer */
+    .interactive-box {
+      border: 1px solid rgba(0, 210, 157, 0.3);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      background: linear-gradient(180deg, rgba(0, 210, 157, 0.05) 0%, transparent 100%);
+      margin-top: 1rem;
+    }
+
+    .zone-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .zone-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .zone-btn:hover, .zone-btn.selected {
+      background: var(--accent);
+      color: #0b0f19;
+      border-color: var(--accent);
+    }
+
+    .zone-info-display {
+      background: rgba(11, 15, 25, 0.8);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+
+    .zone-info-display h4 {
+      color: var(--accent);
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--card-border);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    @media (max-width: 600px) {
+      .container { padding: 1.5rem 1rem 3rem; }
+      .stat-card { padding: 1rem; }
+      .stat-number { font-size: 1.6rem; }
+      .card { padding: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="badge">
+        <span class="badge-dot"></span> Proyecto Estratégico Municipal
+      </div>
+      <h1>Cuartel Sánchez Aguilera <span class="highlight-text">Ferrol</span></h1>
+      <p class="subtitle">
+        La mayor operación urbanística de Ferrol en décadas: reconvirtiendo 107.800 m² de antiguo suelo militar en un nuevo barrio verde, conectado, residencial y universitario.
+      </p>
+    </header>
+
+    <!-- Datos Clave -->
+    <section class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">107.800 m²</div>
+        <div class="stat-label">Superficie Total de Actuación</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">17,8 M€</div>
+        <div class="stat-label">Presupuesto de Urbanización</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">+20.000 m²</div>
+        <div class="stat-label">Espacios Verdes y Parques</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">478</div>
+        <div class="stat-label">Nuevos Árboles Proyectados</div>
+      </div>
+    </section>
+
+    <!-- Pestañas de navegación -->
+    <nav class="tabs" role="tablist">
+      <button class="tab-btn active" onclick="switchTab('proyecto', this)">🏗️ El Proyecto</button>
+      <button class="tab-btn" onclick="switchTab('historia', this)">📜 Historia</button>
+      <button class="tab-btn" onclick="switchTab('interactivo', this)">🔍 Explorador</button>
+      <button class="tab-btn" onclick="switchTab('cronologia', this)">⏱️ Cronología</button>
+      <button class="tab-btn" onclick="switchTab('patrimonio', this)">🏛️ Patrimonio</button>
+    </nav>
+
+    <!-- Tab 1: El Proyecto -->
+    <div id="tab-proyecto" class="tab-content active">
+      <div class="card">
+        <h2>🏗️ Los 5 Ejes de la Transformación</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.2rem;">
+          El plan especial de reforma interior (PERI-2-R) derriba el muro que durante un siglo dividió el centro de la ciudad para "coser" la trama urbana entre Canido, A Magdalena, o Ensanche y Santa Mariña.
+        </p>
+
+        <div class="features-grid">
+          <div class="feature-item">
+            <span class="feature-icon">🌳</span>
+            <h3>Gran Pulmón Verde</h3>
+            <p>Más de 20.000 metros cuadrados dedicados a parques, senderos peatonales, zonas de juegos infantiles y la plantación de casi medio millar de árboles autóctonos y de sombra.</p>
+          </div>
+
+          <div class="feature-item">
+            <span class="feature-icon">🎓</span>
+            <h3>Residencia Universitaria</h3>
+            <p>Aprovechamiento y rehabilitación de los tres pabellones históricos de la antigua residencia militar para dotar al Campus de Ferrol (UDC) de plazas de alojamiento para estudiantes e investigadores.</p>
+          </div>
+
+          <div class="feature-item">
+            <span class="feature-icon">🏢</span>
+            <h3>Vivienda y Equipamientos</h3>
+            <p>Desarrollo de nuevas parcelas residenciales combinadas con servicios dotacionales, comerciales de proximidad e instalaciones deportivas públicas.</p>
+          </div>
+
+          <div class="feature-item">
+            <span class="feature-icon">🚗</span>
+            <h3>Aparcamiento Disuasorio</h3>
+            <p>Cientos de plazas de aparcamiento público gratuito para aliviar la presión de tráfico y falta de estacionamiento en el centro de Ferrol.</p>
+          </div>
+
+          <div class="feature-item">
+            <span class="feature-icon">🛣️</span>
+            <h3>Conectividad Vial y Peatonal</h3>
+            <p>Apertura de nuevos viales estructurantes que comunican directamente la avenida do Rei con Santa Mariña y el acceso natural a Canido.</p>
+          </div>
+
+          <div class="feature-item">
+            <span class="feature-icon">💶</span>
+            <h3>Inversión de 17,8M€</h3>
+            <p>Proyecto licitado para dar comienzo a las obras sobre el terreno con un plazo de ejecución material previsto de 24 meses.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: Historia -->
+    <div id="tab-historia" class="tab-content">
+      <div class="card">
+        <h2>📜 Del Esplendor Militar al Abandono y Recuperación</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">
+          Construido hacia 1884, este acuartelamiento fue bautizado en honor al coronel e ingeniero militar Dionisio Sánchez de Aguilera, figura destacada de la ingeniería militar española.
+        </p>
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">
+          Durante el siglo XX albergó prestigiosas unidades militares, entre ellas el <strong>Regimiento de Artillería Antiaérea n.º 76 (RAAA 76)</strong>. Con sus naves, garajes, residencias y amplios patios de armas, formaba una pieza clave del Ferrol militar e industrial.
+        </p>
+        <div class="feature-item" style="margin-top: 1.5rem;">
+          <h3>🚪 El cierre de 2002 y el "tapón" urbano</h3>
+          <p>
+            Con la reorganización de las Fuerzas Armadas en 2002, el cuartel cesó su actividad operativa y quedó cerrado. Durante más de dos décadas se convirtió en una «isla interior» inaccesible para los ciudadanos, funcionando parcialmente solo como almacén municipal y depósito de vehículos retirados por la grúa.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: Explorador Interactivo -->
+    <div id="tab-interactivo" class="tab-content">
+      <div class="card">
+        <h2>🔍 Explorador de Espacios del Nuevo Sánchez Aguilera</h2>
+        <p style="color: var(--text-muted);">Haz clic en cada sección del futuro recinto para descubrir qué albergará:</p>
+        
+        <div class="interactive-box">
+          <div class="zone-selector">
+            <button class="zone-btn selected" onclick="showZone('verde')">🌳 Parque Central</button>
+            <button class="zone-btn" onclick="showZone('universidad')">🎓 Pabellones Universitarios</button>
+            <button class="zone-btn" onclick="showZone('viviendas')">🏘️ Barrio Residencial</button>
+            <button class="zone-btn" onclick="showZone('parking')">🅿️ Parkings Disuasorios</button>
+            <button class="zone-btn" onclick="showZone('muralla')">🛡️ Baluarte de San Carlos</button>
+          </div>
+
+          <div id="zone-display" class="zone-info-display">
+            <!-- Dynamic Content -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 4: Cronología -->
+    <div id="tab-cronologia" class="tab-content">
+      <div class="card">
+        <h2>⏱️ Cronología Histórica y Pasos Clave</h2>
+        <div class="timeline">
+          <div class="timeline-step">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">1884</div>
+            <div class="timeline-title">Construcción del Cuartel</div>
+            <div class="timeline-desc">Se levanta la instalación militar de artillería que marcaría el límite urbano entre A Magdalena y Santa Mariña.</div>
+          </div>
+          <div class="timeline-step">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2002</div>
+            <div class="timeline-title">Cese definitivo de actividad militar</div>
+            <div class="timeline-desc">El RAAA 76 cesa sus operaciones y las tropas desalojan el complejo, que pasa a manos del Ministerio de Defensa en reserva.</div>
+          </div>
+          <div class="timeline-step">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">Convenio Defensa - Concello</div>
+            <div class="timeline-title">Adquisición histórica de los terrenos</div>
+            <div class="timeline-desc">Tras arduas negociaciones, el Concello de Ferrol logra la cesión e integración de las casi 11 hectáreas en el patrimonio público local.</div>
+          </div>
+          <div class="timeline-step">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">Luz Verde de Patrimonio</div>
+            <div class="timeline-title">Dictamen favorable y catas arqueológicas</div>
+            <div class="timeline-desc">La Dirección Xeral de Patrimonio Cultural valida la compatibilidad del proyecto garantizando la salvaguarda de los restos del siglo XVIII.</div>
+          </div>
+          <div class="timeline-step">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">Aprobación Definitiva & Obras</div>
+            <div class="timeline-title">17,8 Millones para el Nuevo Ferrol</div>
+            <div class="timeline-desc">Aprobación en Xunta de Goberno Local para dar paso a la licitación y ejecución de los trabajos con una duración de 24 meses.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 5: Patrimonio -->
+    <div id="tab-patrimonio" class="tab-content">
+      <div class="card">
+        <h2>🏛️ Protección Arqueológica y Patrimonio Histórico</h2>
+        <p style="color: var(--text-muted); margin-bottom: 1.25rem;">
+          El desarrollo del Sánchez Aguilera integra el respeto riguroso al legado histórico y defensivo de la ciudad naval:
+        </p>
+        <div class="features-grid">
+          <div class="feature-item">
+            <h3>🏰 Murallas y Baluarte del siglo XVIII</h3>
+            <p>Se integran y ponen en valor los restos asociados al sistema de fortificación ilustrado que protegía Ferrol, con catas y supervisión arqueológica continua.</p>
+          </div>
+          <div class="feature-item">
+            <h3>💧 Depósito de Agua Histórico</h3>
+            <p>Conservación de la emblemática torre/depósito de agua de piedra, que formará parte de la nueva fisonomía paisajística del parque.</p>
+          </div>
+          <div class="feature-item">
+            <h3>🏢 Arquitectura Castrense</h3>
+            <p>Rehabilitación de los pabellones nobles para mantener viva la memoria de la arquitectura militar ferrolana del siglo XIX y XX.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>Proyecto Sánchez Aguilera • Desarrollado para Ferrol (A Coruña, Galicia)</p>
+    </footer>
+  </div>
+
+  <script>
+    const zones = {
+      verde: {
+        title: "🌳 Parque Central y Pulmón Verde",
+        desc: "Un inmenso espacio ajardinado de más de 20.000 m² con 478 árboles, áreas estanciales, senderos para correr y pasear, y juegos infantiles sostenibles integrados en la naturaleza."
+      },
+      universidad: {
+        title: "🎓 Pabellones Universitarios (Campus Ferrol - UDC)",
+        desc: "Reconversión de los antiguos pabellones de oficiales y residencia en una moderna residencia universitaria y centro de servicios para estudiantes y profesores del Campus Industrial de Ferrol."
+      },
+      viviendas: {
+        title: "🏘️ Zona Residencial y Nuevos Hogares",
+        desc: "Nuevas promociones de vivienda integrada con locales comerciales en planta baja para dinamizar la vida de barrio entre el centro histórico y Canido."
+      },
+      parking: {
+        title: "🅿️ Aparcamientos Disuasorios y Movilidad Limpia",
+        desc: "Centenares de plazas gratuitas en superficie y subterráneas para dejar el coche a las puertas del centro peatonal, con puntos de recarga eléctrica y carril bici."
+      },
+      muralla: {
+        title: "🛡️ Entorno Histórico y Baluarte de San Carlos",
+        desc: "Musealización al aire libre e integración de los vestigios del sistema defensivo del siglo XVIII, creando un paseo cultural de gran valor patrimonial."
+      }
+    };
+
+    function showZone(key) {
+      document.querySelectorAll('.zone-btn').forEach(btn => btn.classList.remove('selected'));
+      event.target.classList.add('selected');
+      const z = zones[key];
+      document.getElementById('zone-display').innerHTML = `
+        <h4>${z.title}</h4>
+        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">${z.desc}</p>
+      `;
+    }
+
+    // Init first zone
+    showZone('verde');
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+      event.target.classList.add('active');
+      const target = document.getElementById('tab-' + tabId);
+      if (target) {
+        target.classList.add('active');
+      }
+    }
+  </script>
+</body>
+</html>
