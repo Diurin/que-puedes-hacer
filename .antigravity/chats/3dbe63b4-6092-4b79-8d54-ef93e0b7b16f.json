@@ -3,19 +3,19 @@
   "name": "que puedes hacer?",
   "createdAt": "2026-11-05T22:09:30.339Z",
   "filename": "3dbe63b4-6092-4b79-8d54-ef93e0b7b16f.json",
-  "geminiStarted": false,
+  "geminiStarted": true,
   "messages": [
     {
       "id": "92a2e373-09cb-47aa-b2ad-39f6dc3b0b13",
       "role": "user",
       "content": "que puedes hacer?",
-      "status": "pending",
+      "status": "cancelled",
       "model": "gemini-3.8-flash-high",
       "client_type": "gemini-bridge",
       "parent_message_id": null,
       "created_at": "2026-11-05T22:15:18.820Z",
       "sender": "ios",
-      "is_cancelled": false
+      "is_cancelled": true
     }
   ]
 }
