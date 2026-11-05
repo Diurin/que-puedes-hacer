@@ -498,11 +498,11 @@
         
         <div class="interactive-box">
           <div class="zone-selector">
-            <button class="zone-btn selected" onclick="showZone('verde')">🌳 Parque Central</button>
-            <button class="zone-btn" onclick="showZone('universidad')">🎓 Pabellones Universitarios</button>
-            <button class="zone-btn" onclick="showZone('viviendas')">🏘️ Barrio Residencial</button>
-            <button class="zone-btn" onclick="showZone('parking')">🅿️ Parkings Disuasorios</button>
-            <button class="zone-btn" onclick="showZone('muralla')">🛡️ Baluarte de San Carlos</button>
+            <button class="zone-btn selected" onclick="showZone('verde', this)">🌳 Parque Central</button>
+            <button class="zone-btn" onclick="showZone('universidad', this)">🎓 Pabellones Universitarios</button>
+            <button class="zone-btn" onclick="showZone('viviendas', this)">🏘️ Barrio Residencial</button>
+            <button class="zone-btn" onclick="showZone('parking', this)">🅿️ Parkings Disuasorios</button>
+            <button class="zone-btn" onclick="showZone('muralla', this)">🛡️ Baluarte de San Carlos</button>
           </div>
 
           <div id="zone-display" class="zone-info-display">
@@ -604,24 +604,31 @@
       }
     };
 
-    function showZone(key) {
+    function showZone(key, el) {
       document.querySelectorAll('.zone-btn').forEach(btn => btn.classList.remove('selected'));
-      event.target.classList.add('selected');
+      if (el) {
+        el.classList.add('selected');
+      } else {
+        const first = document.querySelector('.zone-btn');
+        if (first) first.classList.add('selected');
+      }
       const z = zones[key];
-      document.getElementById('zone-display').innerHTML = `
-        <h4>${z.title}</h4>
-        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">${z.desc}</p>
-      `;
+      if (z) {
+        document.getElementById('zone-display').innerHTML = `
+          <h4>${z.title}</h4>
+          <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">${z.desc}</p>
+        `;
+      }
     }
 
     // Init first zone
     showZone('verde');
 
-    function switchTab(tabId) {
+    function switchTab(tabId, el) {
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
       document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
 
-      event.target.classList.add('active');
+      if (el) el.classList.add('active');
       const target = document.getElementById('tab-' + tabId);
       if (target) {
         target.classList.add('active');
