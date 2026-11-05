@@ -16,6 +16,18 @@
       "created_at": "2026-11-05T22:15:18.820Z",
       "sender": "ios",
       "is_cancelled": true
+    },
+    {
+      "id": "bac16182-573a-45c2-9f05-3e687786b8bb",
+      "role": "user",
+      "content": "sánchez aguilera ferrol",
+      "status": "pending",
+      "model": "gemini-3.8-flash-high",
+      "client_type": "gemini-bridge",
+      "parent_message_id": null,
+      "created_at": "2026-11-05T22:18:30.580Z",
+      "sender": "ios",
+      "is_cancelled": false
     }
   ]
 }
